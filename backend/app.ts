@@ -21,7 +21,7 @@ import commentRoutes from "./comment-routes";
 import notificationRoutes from "./notification-routes";
 import bankTransferRoutes from "./banktransfer-routes";
 import testDataRoutes from "./testdata-routes";
-import { checkAuth0Jwt, verifyOktaToken, checkCognitoJwt, checkGoogleJwt } from "./helpers";
+import { checkAuth0Jwt, verifyOktaToken, checkGoogleJwt } from "./helpers";
 import resolvers from "./graphql/resolvers";
 import { frontendPort, getBackendPort } from "../src/utils/portUtils";
 
@@ -84,10 +84,10 @@ if (process.env.VITE_OKTA) {
   app.use(verifyOktaToken);
 }
 
-/* istanbul ignore if */
-if (process.env.VITE_AWS_COGNITO) {
-  app.use(checkCognitoJwt);
-}
+// /* istanbul ignore if */
+// if (process.env.VITE_AWS_COGNITO) {
+//   app.use(checkCognitoJwt);
+// }
 
 /* istanbul ignore if */
 if (process.env.VITE_GOOGLE) {

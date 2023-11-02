@@ -7,8 +7,8 @@ import jwksRsa from "jwks-rsa";
 
 // @ts-ignore
 import OktaJwtVerifier from "@okta/jwt-verifier";
-// @ts-ignore
-import awsConfig from "../src/aws-exports";
+// // @ts-ignore
+// import awsConfig from "../src/aws-exports";
 
 dotenv.config();
 
@@ -80,17 +80,17 @@ export const verifyOktaToken = (req: Request, res: Response, next: NextFunction)
 
 // Amazon Cognito Validate the JWT Signature
 // https://docs.aws.amazon.com/cognito/latest/developerguide/amazon-cognito-user-pools-using-tokens-verifying-a-jwt.html#amazon-cognito-user-pools-using-tokens-step-2
-const awsCognitoJwtConfig = {
-  secret: jwksRsa.expressJwtSecret({
-    jwksUri: `https://cognito-idp.${awsConfig.aws_cognito_region}.amazonaws.com/${awsConfig.aws_user_pools_id}/.well-known/jwks.json`,
-  }),
+// const awsCognitoJwtConfig = {
+//   secret: jwksRsa.expressJwtSecret({
+//     jwksUri: `https://cognito-idp.${awsConfig.aws_cognito_region}.amazonaws.com/${awsConfig.aws_user_pools_id}/.well-known/jwks.json`,
+//   }),
 
-  issuer: `https://cognito-idp.${awsConfig.aws_cognito_region}.amazonaws.com/${awsConfig.aws_user_pools_id}`,
-  algorithms: ["RS256"],
-};
+//   issuer: `https://cognito-idp.${awsConfig.aws_cognito_region}.amazonaws.com/${awsConfig.aws_user_pools_id}`,
+//   algorithms: ["RS256"],
+// };
 
 export const checkAuth0Jwt = jwt(auth0JwtConfig).unless({ path: ["/testData/*"] });
-export const checkCognitoJwt = jwt(awsCognitoJwtConfig).unless({ path: ["/testData/*"] });
+// export const checkCognitoJwt = jwt(awsCognitoJwtConfig).unless({ path: ["/testData/*"] });
 export const checkGoogleJwt = jwt(googleJwtConfig).unless({ path: ["/testData/*"] });
 
 export const ensureAuthenticated = (req: Request, res: Response, next: NextFunction) => {
