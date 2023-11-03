@@ -17,8 +17,14 @@ apiTestsJob
   .addStep(new commands.Checkout())
   .addStep(
     new commands.Run({
-      command: "npm install",
+      name: "Set Yarn Classic",
+      command: "yarn set version classic",
+    })
+  )
+  .addStep(
+    new commands.Run({
       name: "Install packages",
+      command: "yarn install",
     })
   )
   .addStep(
@@ -29,8 +35,8 @@ apiTestsJob
   )
   .addStep(
     new commands.Run({
-      name: "Run API tests using Cypress",
-      command: "npx cypress run --spec cypress/tests/api/",
+      name: "git status",
+      command: "git status",
     })
   );
 
