@@ -39,5 +39,5 @@ apiTestsWorkflow.addJob(apiTestsJob);
 const yamlConfig = linuxConfig.stringify();
 
 linuxConfig
-  .writeFile("./.circleci/linux-api-tests.yml")
+  .writeFile("./.circleci/config.yml")
   .then(() => console.log("Generated CircleCI config!"));
