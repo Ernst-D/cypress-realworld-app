@@ -33,6 +33,7 @@ router.get("/search", ensureAuthenticated, validateMiddleware([searchValidation]
   const { q } = req.query;
 
   /* istanbul ignore next */
+  //@ts-ignore
   const users = removeUserFromResults(req.user?.id!, searchUsers(q));
 
   res.status(200).json({ results: users });
