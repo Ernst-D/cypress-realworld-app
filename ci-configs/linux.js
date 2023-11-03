@@ -1,5 +1,21 @@
 const { Config, Workflow, executors, Job, commands } = require("@circleci/circleci-config-sdk");
 
+const commandInstallWaitOn = new commands.Run({
+  name: "Install 'wait-on' module",
+  command: "npm install -g wait-on",
+});
+
+const commandRunApp = new commands.Run({
+  name: "Run frontend and backend",
+  command: "yarn start",
+});
+
+const commandWaitOnPort = (port, desc) =>
+  new commands.Run({
+    name: `Run 'wait-on' for ${desc}`,
+    command: `wait-on http://localhost:${port}`,
+  });
+
 const linuxConfig = new Config();
 const apiTestsWorkflow = new Workflow("API tests with Cypress");
 
@@ -37,6 +53,16 @@ apiTestsJob
     new commands.Run({
       name: "git status",
       command: "git status",
+    })
+  )
+  .addStep(commandInstallWaitOn)
+  .addStep(commandRunApp)
+  .addStep(commandWaitOnPort(3000, "frontend port"))
+  .addStep(commandWaitOnPort(3001, "backend port"))
+  .addStep(
+    new commands.Run({
+      name: "Run API tests",
+      command: "npx cypress run --spec cypress/tests/api/",
     })
   );
 

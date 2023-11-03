@@ -23,6 +23,21 @@ jobs:
       - run:
           name: git status
           command: git status
+      - run:
+          name: Install 'wait-on' module
+          command: npm install -g wait-on
+      - run:
+          name: Run frontend and backend
+          command: yarn start
+      - run:
+          name: Run 'wait-on' for frontend port
+          command: wait-on http://localhost:3000
+      - run:
+          name: Run 'wait-on' for backend port
+          command: wait-on http://localhost:3001
+      - run:
+          name: Run API tests
+          command: npx cypress run --spec cypress/tests/api/
 workflows:
   API tests with Cypress:
     jobs:
