@@ -10,7 +10,7 @@ const BrowserToolsOrb = new orb.OrbImport(
     jobs: {},
     commands: {
       "install-chrome": new parameters.CustomParametersList([
-        new parameters.CustomEnumParameter("channel", ["stable, canary"]),
+        new parameters.CustomEnumParameter("channel", ["stable, beta"]),
         new parameters.CustomParameter("chrome-version", "string"),
         new parameters.CustomParameter("replace-existing", "boolean"),
       ]),

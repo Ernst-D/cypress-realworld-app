@@ -4,7 +4,6 @@ const { commands, reusable } = require("@circleci/circleci-config-sdk");
 const { sharedJob } = require("./shared");
 const { BrowserToolsOrb } = require("../orbs");
 
-
 const setupAppAndCypress = sharedJob("run-app-and-cypress")
   .addStep(
     new commands.Run({
@@ -14,7 +13,7 @@ const setupAppAndCypress = sharedJob("run-app-and-cypress")
   )
   .addStep(
     new reusable.ReusedCommand(BrowserToolsOrb.commands["install-chrome"], {
-      channel: ["stable"],
+      channel: "stable",
       "chrome-version": "119.0.6045.105",
       "replace-existing": true,
     })

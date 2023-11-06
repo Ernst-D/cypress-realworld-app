@@ -24,8 +24,7 @@ jobs:
           name: List project dir
           command: ls
       - browser-tools/install-chrome:
-          channel:
-            - stable
+          channel: stable
           chrome-version: 119.0.6045.105
           replace-existing: true
       - run:
