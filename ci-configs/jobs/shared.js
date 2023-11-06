@@ -13,7 +13,7 @@ const commandInstallPackages = new commands.Run({
 });
 
 const sharedJob = (jobName = "setup-project") =>
-  new Job(jobName, dockerExecutor(), [
+  new Job(jobName, dockerExecutor("18.12.1-browsers"), [
     new commands.Checkout(),
     commandSetYarnClassic,
     commandInstallPackages,

@@ -7,7 +7,7 @@ setup: false
 jobs:
   run-app-and-cypress:
     docker:
-      - image: cimg/node:18.12.1
+      - image: cimg/node:18.12.1-browsers
     resource_class: small
     steps:
       - checkout
