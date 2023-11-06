@@ -10,6 +10,7 @@ jobs:
       - image: cimg/node:18.12.1
     resource_class: small
     steps:
+      - checkout
       - run:
           name: Set Yarn Classic
           command: yarn set version classic

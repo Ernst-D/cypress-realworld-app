@@ -23,6 +23,7 @@ const commandSaveCacheNodeModules = new commands.cache.Save({
 });
 
 setupProject
+  .addStep(new commands.Checkout())
   .addStep(commandSetYarnClassic)
   .addStep(commandRestoreCacheNodeModules)
   .addStep(commandInstallPackages)
