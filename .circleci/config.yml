@@ -18,14 +18,10 @@ jobs:
           key: v1-deps-{{ checksum "yarn.lock" }}
       - run:
           name: Install packages
-          command: yarn install --frozen-lockfile
+          command: yarn install
       - run:
           name: git status
           command: git status
-      - save_cache:
-          paths:
-            - node_modules
-          key: v1-deps-{{ checksum "yarn.lock" }}
 workflows:
   API tests with Cypress:
     jobs:
