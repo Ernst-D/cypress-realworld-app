@@ -16,7 +16,7 @@ const sharedJob = (jobName = "setup-project") =>
   new Job(jobName, dockerExecutor("18.12.1-browsers"), [
     new commands.Run({
       name: "install missing dependency",
-      command: "apt-get update -y && apt-get install -y libu2f-udev",
+      command: "sudo apt-get update -y && sudo apt-get install -y libu2f-udev",
     }),
     new commands.Checkout(),
     commandSetYarnClassic,

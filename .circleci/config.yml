@@ -12,7 +12,7 @@ jobs:
     steps:
       - run:
           name: install missing dependency
-          command: apt-get update -y && apt-get install -y libu2f-udev
+          command: sudo apt-get update -y && sudo apt-get install -y libu2f-udev
       - checkout
       - run:
           name: Set Yarn Classic
