@@ -12,6 +12,12 @@ const setupAppAndCypress = sharedJob("run-app-and-cypress")
     })
   )
   .addStep(
+    new commands.Run({
+      name: "install missing dependency for Chrome Stable",
+      command: "sudo apt-get update -y && sudo apt-get install -y libu2f-udev",
+    })
+  )
+  .addStep(
     new reusable.ReusedCommand(BrowserToolsOrb.commands["install-chrome"], {
       channel: "stable",
       "chrome-version": "119.0.6045.105",

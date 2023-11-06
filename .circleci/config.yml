@@ -10,9 +10,6 @@ jobs:
       - image: cimg/node:18.12.1-browsers
     resource_class: small
     steps:
-      - run:
-          name: install missing dependency
-          command: sudo apt-get update -y && sudo apt-get install -y libu2f-udev
       - checkout
       - run:
           name: Set Yarn Classic
@@ -26,6 +23,9 @@ jobs:
       - run:
           name: List project dir
           command: ls
+      - run:
+          name: install missing dependency for Chrome Stable
+          command: sudo apt-get update -y && sudo apt-get install -y libu2f-udev
       - browser-tools/install-chrome:
           channel: stable
           chrome-version: 119.0.6045.105
