@@ -5,12 +5,11 @@
 version: 2.1
 setup: false
 jobs:
-  run-api-tests:
+  setup-project:
     docker:
-      - image: cypress/browsers:node-18.15.0-chrome-106.0.5249.61-1-ff-99.0.1-edge-114.0.1823.51-1
+      - image: cimg/node:18.12.1
     resource_class: small
     steps:
-      - checkout
       - run:
           name: Set Yarn Classic
           command: yarn set version classic
@@ -19,6 +18,9 @@ jobs:
       - run:
           name: Install packages
           command: yarn install
+      - run:
+          name: git status
+          command: git status
       - save_cache:
           paths:
             - node_modules
@@ -26,4 +28,4 @@ jobs:
 workflows:
   API tests with Cypress:
     jobs:
-      - run-api-tests
+      - setup-project
