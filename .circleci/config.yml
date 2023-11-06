@@ -14,8 +14,6 @@ jobs:
       - run:
           name: Set Yarn Classic
           command: yarn set version classic
-      - restore_cache:
-          key: v1-deps-{{ checksum "yarn.lock" }}
       - run:
           name: Install packages
           command: yarn install
