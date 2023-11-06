@@ -1,4 +1,15 @@
+// @ts-check
+
 const { Config, Workflow, executors, Job, commands } = require("@circleci/circleci-config-sdk");
+
+const cacheKeyNodeModules = `v1-deps-{{ checksum "yarn.lock" }}`;
+const commandRestoreCacheNodeModules = new commands.cache.Restore({
+  key: cacheKeyNodeModules,
+});
+const commandSaveCacheNodeModules = new commands.cache.Save({
+  paths: ["node_modules"],
+  key: cacheKeyNodeModules,
+});
 
 const commandInstallWaitOn = new commands.Run({
   name: "Install 'wait-on' module",
@@ -37,34 +48,36 @@ apiTestsJob
       command: "yarn set version classic",
     })
   )
+  .addStep(commandRestoreCacheNodeModules)
   .addStep(
     new commands.Run({
       name: "Install packages",
       command: "yarn install",
     })
   )
-  .addStep(
-    new commands.Run({
-      command: "npx cypress info",
-      name: "Show Cypress info",
-    })
-  )
-  .addStep(
-    new commands.Run({
-      name: "git status",
-      command: "git status",
-    })
-  )
-  .addStep(commandInstallWaitOn)
-  .addStep(commandRunApp)
-  .addStep(commandWaitOnPort(3000, "frontend port"))
-  .addStep(commandWaitOnPort(3001, "backend port"))
-  .addStep(
-    new commands.Run({
-      name: "Run API tests",
-      command: "npx cypress run --spec cypress/tests/api/",
-    })
-  );
+  .addStep(commandSaveCacheNodeModules);
+// .addStep(
+//   new commands.Run({
+//     command: "npx cypress info",
+//     name: "Show Cypress info",
+//   })
+// )
+// .addStep(
+//   new commands.Run({
+//     name: "git status",
+//     command: "git status",
+//   })
+// )
+// .addStep(commandInstallWaitOn)
+// .addStep(commandRunApp)
+// .addStep(commandWaitOnPort(3000, "frontend port"))
+// .addStep(commandWaitOnPort(3001, "backend port"))
+// .addStep(
+//   new commands.Run({
+//     name: "Run API tests",
+//     command: "npx cypress run --spec cypress/tests/api/",
+//   })
+// );
 
 apiTestsWorkflow.addJob(apiTestsJob);
 

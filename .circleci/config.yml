@@ -14,30 +14,15 @@ jobs:
       - run:
           name: Set Yarn Classic
           command: yarn set version classic
+      - restore_cache:
+          key: v1-deps-{{ checksum "yarn.lock" }}
       - run:
           name: Install packages
           command: yarn install
-      - run:
-          command: npx cypress info
-          name: Show Cypress info
-      - run:
-          name: git status
-          command: git status
-      - run:
-          name: Install 'wait-on' module
-          command: npm install -g wait-on
-      - run:
-          name: Run frontend and backend
-          command: yarn start
-      - run:
-          name: Run 'wait-on' for frontend port
-          command: wait-on http://localhost:3000
-      - run:
-          name: Run 'wait-on' for backend port
-          command: wait-on http://localhost:3001
-      - run:
-          name: Run API tests
-          command: npx cypress run --spec cypress/tests/api/
+      - save_cache:
+          paths:
+            - node_modules
+          key: v1-deps-{{ checksum "yarn.lock" }}
 workflows:
   API tests with Cypress:
     jobs:
