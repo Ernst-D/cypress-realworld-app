@@ -11,7 +11,7 @@ const commandSetYarnClassic = new commands.Run({
 });
 const commandInstallPackages = new commands.Run({
   name: "Install packages",
-  command: "yarn install --frozen-lockfile",
+  command: "yarn install",
 });
 const cacheKeyNodeModules = `v1-deps-{{ checksum "yarn.lock" }}`;
 const commandRestoreCacheNodeModules = new commands.cache.Restore({
@@ -32,8 +32,8 @@ setupProject
       name: "git status",
       command: "git status",
     })
-  )
-  .addStep(commandSaveCacheNodeModules);
+  );
+// .addStep(commandSaveCacheNodeModules);
 
 module.exports = {
   setupProject,
