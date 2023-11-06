@@ -40,6 +40,7 @@ router.get(
     const transactions = getTransactionsForUserForApi(req.user?.id!, req.query);
 
     const { totalPages, data: paginatedItems } = getPaginatedItems(
+      //@ts-ignore
       req.query.page,
       req.query.limit,
       transactions
@@ -72,6 +73,7 @@ router.get(
     const transactions = getTransactionsForUserContacts(req.user?.id!, req.query);
 
     const { totalPages, data: paginatedItems } = getPaginatedItems(
+      // @ts-ignore
       req.query.page,
       req.query.limit,
       transactions
@@ -96,6 +98,7 @@ router.get(
   ensureAuthenticated,
   validateMiddleware(isTransactionPublicQSValidator),
   (req, res) => {
+    //@ts-ignore
     const isFirstPage = req.query.page === 1;
 
     /* istanbul ignore next */
@@ -115,6 +118,7 @@ router.get(
     }
 
     const { totalPages, data: paginatedItems } = getPaginatedItems(
+      // @ts-ignore
       req.query.page,
       req.query.limit,
       isFirstPage ? publicTransactionsWithContacts : publicTransactions
