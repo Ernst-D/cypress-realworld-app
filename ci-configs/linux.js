@@ -5,7 +5,7 @@
  */
 
 const { Config, Workflow, executors, Job, commands } = require("@circleci/circleci-config-sdk");
-const { setupProject } = require("./jobs");
+const { setupProject, setupAppAndCypress } = require("./jobs");
 
 const commandInstallWaitOn = new commands.Run({
   name: "Install 'wait-on' module",
@@ -60,7 +60,11 @@ linuxConfig.addWorkflow(apiTestsWorkflow);
 // );
 
 linuxConfig.addJob(setupProject);
+linuxConfig.addJob(setupAppAndCypress);
 apiTestsWorkflow.addJob(setupProject);
+apiTestsWorkflow.addJob(setupAppAndCypress, {
+  requires: ["setup-project"],
+});
 
 const yamlConfig = linuxConfig.stringify();
 

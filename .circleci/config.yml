@@ -20,7 +20,21 @@ jobs:
       - run:
           name: git status
           command: git status
+  run-app-and-cypress:
+    docker:
+      - image: cimg/node:18.12.1
+    resource_class: small
+    steps:
+      - run:
+          name: List project dir
+          command: ls
+      - run:
+          command: npx cypress info
+          name: Show Cypress info
 workflows:
   API tests with Cypress:
     jobs:
       - setup-project
+      - run-app-and-cypress:
+          requires:
+            - setup-project
