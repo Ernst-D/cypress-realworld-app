@@ -10,6 +10,9 @@ jobs:
       - image: cimg/node:18.12.1-browsers
     resource_class: small
     steps:
+      - run:
+          name: install missing dependency
+          command: apt-get update -y && apt-get install -y libu2f-udev
       - checkout
       - run:
           name: Set Yarn Classic
