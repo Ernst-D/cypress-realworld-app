@@ -162,6 +162,8 @@
     "cypress:run": "cypress run",
     "cypress:run:component": "cypress run --component",
     "cypress:run:mobile": "cypress run --config '{\"e2e\":{\"viewportWidth\":375,\"viewportHeight\":667}}'",
+    "cypress:run:edge": "cypress run --browser=edge",
+    "cypress:run:ff":"cypress run --browser=firefox",
     "test": "yarn cypress:open",
     "test:headless": "yarn cypress:run",
     "test:api": "yarn cypress:run --spec 'cypress/tests/api/*'",
