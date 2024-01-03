@@ -12,6 +12,16 @@ export const setMobileViewport = () => {
       name: "iphone-15",
       viewportWidth: 393,
       viewportHeight: 852
+    },
+    {
+      name:"samsung-galaxy-s23-plus",
+      viewportWidth: 360,
+      viewportHeight: 780
+    },
+    {
+      name:"iphone-15-pro-max",
+      viewportWidth: 430,
+      viewportHeight: 932
     }
   ]
   switch (true) {
