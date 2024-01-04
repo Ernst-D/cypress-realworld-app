@@ -16,6 +16,7 @@ module.exports = defineConfig({
   retries: {
     runMode: 2,
   },
+  watchForFileChanges: false,
   env: {
     apiUrl: "http://localhost:3001",
     mobileViewportWidthBreakpoint: 414,
@@ -70,6 +71,7 @@ module.exports = defineConfig({
     viewportHeight: 1000,
     viewportWidth: 1280,
     experimentalRunAllSpecs: true,
+    experimentalWebKitSupport: true,
     setupNodeEvents(on, config) {
       const testDataApiEndpoint = `${config.env.apiUrl}/testData`;
 
